@@ -1,34 +1,53 @@
 <template>
 <div>
-  <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
-  <div style="margin: 15px 0;"></div>
-  <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
-    <el-checkbox v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox>
-  </el-checkbox-group>
+  <el-form class="login-box"  ref="form" :model="user" shadow="always" label-width="60px" center>
+    <el-form-item >
+        <font color="black" size="3" style="padding-left:35%">注册/登录</font>
+    </el-form-item>
+    <el-form-item label="用户名">
+      <el-input placeholder="请输入用户名" v-model="user.userName" ></el-input>
+    </el-form-item>
+    <el-form-item label="密码">
+      <el-input placeholder="请输入密码" v-model="user.password" show-password></el-input>
+    </el-form-item>
+    <el-form-item >
+      <el-button type="primary" @click="onSubmit" style="margin-left:25%">立即登陆</el-button>
+    </el-form-item>
+  </el-form>
 </div>
 </template>
+
 <script>
-const cityOptions = ['上海', '北京', '广州', '深圳'];
 export default {
   data() {
     return {
-      checkAll: false,
-      checkedCities: ['上海', '北京'],
-      cities: cityOptions,
-      isIndeterminate: true
-    };
+      user:{
+        userName:'',
+        password:''
+      }
+}
+
   },
   methods: {
-    handleCheckAllChange(val) {
-      this.checkedCities = val ? cityOptions : [];
-      this.isIndeterminate = false;
-    },
-    handleCheckedCitiesChange(value) {
-      console.log(value)
-      let checkedCount = value.length;
-      this.checkAll = checkedCount === this.cities.length;
-      this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
+    onSubmit() {
+      console.log('submit!');
     }
   }
 };
 </script>
+<style>
+html{
+  height: 100%;
+  width: 100%;
+  background:url("/static/loginBackground.png") center center no-repeat fixed;
+}
+.login-box {
+  margin : 10% 35% 0 35%;
+  padding: 2% 4% 4% 0%;
+  width: 20%;
+  height:30%;
+  border-radius: 4px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.1);
+}
+</style>
